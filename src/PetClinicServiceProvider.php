@@ -12,7 +12,7 @@ class PetClinicServiceProvider extends Provider
     {
         $this->services->addDefinitions([
             ErrorHandlerInterface::class => di\object(ErrorHandler::class),
-            services\VetServiceInterface::class => di\object(services\MockVetService::class),
+            services\VetServiceInterface::class => di\object(services\DbVetService::class),
         ]);
     }
 }

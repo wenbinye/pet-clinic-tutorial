@@ -1,0 +1,61 @@
+owner:
+  columns:
+    id: 'integer unsigned notnull autoincrement'
+    first_name: string(30)
+    last_name: string(30)
+    address: string(255)
+    city: string(80)
+    telephone: string(20)
+  indexes:
+    PRIMARY: 'PRIMARY KEY(id)'
+    last_name: KEY(last_name)
+pet:
+  columns:
+    id: 'integer unsigned notnull autoincrement'
+    owner_id: 'integer unsigned notnull'
+    type_id: 'integer unsigned notnull'
+    name: string(30)
+    birth_date: date
+  indexes:
+    PRIMARY: 'PRIMARY KEY(id)'
+    name: KEY(name)
+    owner_id: KEY(owner_id)
+    type_id: KEY(type_id)
+specialty:
+  columns:
+    id: 'integer unsigned notnull autoincrement'
+    name: string(80)
+  indexes:
+    PRIMARY: 'PRIMARY KEY(id)'
+    name: KEY(name)
+pet_type:
+  columns:
+    id: 'integer unsigned notnull autoincrement'
+    name: string(80)
+  indexes:
+    PRIMARY: 'PRIMARY KEY(id)'
+    name: KEY(name)
+vet_specialty:
+  columns:
+    vet_id: 'integer unsigned notnull'
+    specialty_id: 'integer unsigned notnull'
+  indexes:
+    vet_id: 'UNIQUE KEY(vet_id,specialty_id)'
+    specialty_id: KEY(specialty_id)
+vet:
+  columns:
+    id: 'integer unsigned notnull autoincrement'
+    first_name: string(30)
+    last_name: string(30)
+  indexes:
+    PRIMARY: 'PRIMARY KEY(id)'
+    last_name: KEY(last_name)
+visit:
+  columns:
+    id: 'integer unsigned notnull autoincrement'
+    pet_id: 'integer unsigned notnull'
+    visit_date: date
+    description: string(255)
+  indexes:
+    PRIMARY: 'PRIMARY KEY(id)'
+    pet_id: KEY(pet_id)
