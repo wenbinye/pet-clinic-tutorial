@@ -36,15 +36,7 @@
           </div>
           <div class="navbar-collapse collapse" id="main-navbar">
               <ul class="nav navbar-nav navbar-right">
-  
                   <li>
-                      <a href="">
-                        <span class="glyphicon  glyphicon-null" aria-hidden="true"></span>
-                        <span></span>
-                      </a>
-                  </li>
-  
-                  <li class="active">
                       <a href="/" title="home page">
                         <span class="glyphicon  glyphicon-home" aria-hidden="true"></span>
                         <span>Home</span>
@@ -59,7 +51,7 @@
                   </li>
   
                   <li>
-                      <a href="/vets.html" title="veterinarians">
+                      <a href="/vets" title="veterinarians">
                         <span class="glyphicon  glyphicon-th-list" aria-hidden="true"></span>
                         <span>Veterinarians</span>
                       </a>
@@ -96,5 +88,13 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 </body>
-
+<script>
+ $(function() {
+     $("#main-navbar li").each(function() {
+         if ($(this).find('a').attr('href') == location.pathname) {
+             $(this).addClass("active");
+         }
+     });
+ });
+</script>
 </html>
