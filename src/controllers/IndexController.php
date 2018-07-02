@@ -2,20 +2,10 @@
 
 namespace winwin\petClinic\controllers;
 
-use kuiper\di\annotation\Inject;
-use kuiper\web\ViewInterface;
-
-class IndexController extends \kuiper\web\Controller
+class IndexController extends Controller
 {
-    /**
-     * @Inject
-     *
-     * @var ViewInterface
-     */
-    private $view;
-
     public function index()
     {
-        $this->response->getBody()->write($this->view->render('index/welcome.html'));
+        $this->render('index/welcome');
     }
 }
