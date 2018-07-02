@@ -5,6 +5,10 @@ return [
         'name' => 'App',
         'level' => getenv('LOGGER_LEVEL') ?: 'debug',
         'file' => '{app.runtime_path}/default.log',
-        'error_file' => '{app.runtime_path}/error.log',
+        'handlers' => [[
+            'level' => 'error',
+            'file' => '{app.runtime_path}/error.log',
+            'allow_inline_line_breaks' => true,
+        ]],
     ],
 ];

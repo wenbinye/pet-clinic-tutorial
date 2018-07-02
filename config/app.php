@@ -5,6 +5,7 @@ return [
         kuiper\boot\providers\WebApplicationProvider::class,
         kuiper\boot\providers\TwigViewProvider::class,
         kuiper\boot\providers\MonologProvider::class,
+        winwin\petClinic\PetClinicServiceProvider::class,
     ],
     'base_path' => realpath(__DIR__.'/..'),
     'runtime_path' => '{app.base_path}/runtime',
