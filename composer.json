@@ -1,0 +1,26 @@
+{
+    "name": "winwin/pet-clinic",
+    "type": "project",
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0",
+        "winwin/composer-phpcs-plugin": "^0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "winwin\\petClinic\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "winwin\\petClinic\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "serve": "php -t public -S 0:${WEB_PORT:-8000} index.php"
+    }
+}
