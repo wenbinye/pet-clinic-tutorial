@@ -35,12 +35,8 @@ class DbVetService implements VetServiceInterface
                 ->where(['vet_id' => array_keys($vets)])
                 ->query()
                 ->fetchAll(\PDO::FETCH_ASSOC);
-            $specialties = [];
             foreach ($specialtyRows as $row) {
-                $specialties[$row['vet_id']][] = (new Specialty())->setName($row['name']);
-            }
-            foreach ($specialties as $vetId => $vetSpecialties) {
-                $vets[$vetId]->setSpecialties($vetSpecialties);
+                $vets[$row['vet_id']]->addSpecialty((new Specialty())->setName($row['name']));
             }
         }
 

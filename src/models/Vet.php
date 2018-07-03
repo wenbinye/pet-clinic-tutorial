@@ -54,4 +54,11 @@ class Vet
 
         return $this;
     }
+
+    public function addSpecialty(Specialty $specialty)
+    {
+        $this->specialties[] = $specialty;
+
+        return $this;
+    }
 }
