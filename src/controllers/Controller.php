@@ -21,9 +21,14 @@ abstract class Controller extends \kuiper\web\Controller implements LoggerAwareI
      */
     protected $view;
 
+    protected function getDefaultVars($page)
+    {
+        return [];
+    }
+
     protected function render($page, $vars = [], $return = false)
     {
-        $content = $this->view->render($page.self::TEMPLATE_EXTENSION, $vars);
+        $content = $this->view->render($page.self::TEMPLATE_EXTENSION, array_merge($this->getDefaultVars($page), $vars));
         if ($return) {
             return $content;
         }

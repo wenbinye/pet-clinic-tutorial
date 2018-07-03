@@ -1,0 +1,54 @@
+{% set menu_active = "owners" %}
+
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <h2>{{ visit.visitDate ? '' : 'New ' }} Visit</h2>
+
+  <b>Pet</b>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Birth Date</th>
+        <th>Type</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>{{ pet.name }}</td>
+      <td>{{ pet.birthDate | date('Y-m-d') }}</td>
+      <td>{{ pet.type }}</td>
+      <td>{{ pet.owner.firstName ~ ' ' ~ pet.owner.lastName }}</td>
+    </tr>
+  </table>
+
+  <form class="form-horizontal" method="post">
+    <div class="form-group has-feedback">
+      {{ include("partials/inputField.html", {"label":"Date", "name": "visitDate", "type": "date"}) }}
+      {{ include("partials/inputField.html", {"label":"Description", "name": "description", "type": "text"}) }}
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="hidden" name="petId" value="{{ pet.petId }}" />
+        <button class="btn btn-default" type="submit">Add Visit</button>
+      </div>
+    </div>
+  </form>
+
+  <br />
+  <b>Previous Visits</b>
+  <table class="table table-striped">
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+    </tr>
+    {% for visit in pet.visits %}
+    <tr>
+      <td>{{ visit.visitDate | date('Y-m-d') }}</td>
+      <td>{{ visit.description }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

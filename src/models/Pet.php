@@ -110,4 +110,31 @@ class Pet
 
         return $this;
     }
+
+    /**
+     * @return Visit[]
+     */
+    public function getVisits()
+    {
+        return $this->visits;
+    }
+
+    /**
+     * @param Visit[] $visits
+     *
+     * @return Pet
+     */
+    public function setVisits($visits)
+    {
+        $this->visits = $visits;
+
+        return $this;
+    }
+
+    public function addVisit(Visit $visit)
+    {
+        $this->visits[] = $visit;
+
+        return $this;
+    }
 }
