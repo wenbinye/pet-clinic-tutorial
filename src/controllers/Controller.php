@@ -3,6 +3,7 @@
 namespace winwin\petClinic\controllers;
 
 use kuiper\di\annotation\Inject;
+use kuiper\web\exception\RedirectException;
 use kuiper\web\ViewInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -27,5 +28,10 @@ abstract class Controller extends \kuiper\web\Controller implements LoggerAwareI
             return $content;
         }
         $this->getResponse()->getBody()->write($content);
+    }
+
+    protected function redirect($url)
+    {
+        throw new RedirectException($url);
     }
 }

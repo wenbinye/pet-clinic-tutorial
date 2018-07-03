@@ -6,6 +6,7 @@ return [
         kuiper\boot\providers\TwigViewProvider::class,
         kuiper\boot\providers\MonologProvider::class,
         winwin\providers\DbConnectionProvider::class,
+        winwin\providers\ValidatorProvider::class,
         winwin\petClinic\PetClinicServiceProvider::class,
     ],
     'database' => [

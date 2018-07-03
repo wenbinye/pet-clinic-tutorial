@@ -1,0 +1,10 @@
+{% set menu_active = "error" %}
+
+{% extends "layouts/main.html" %}
+
+{% block content %}
+<img class="img-responsive" src="{{ static_url('/images/pets.png') }}" th:src="{{ static_url('/images/pets.png') }}"/>
+
+<h2>Something happened...</h2>
+<p>{{ message }}</p>
+{% endblock %}

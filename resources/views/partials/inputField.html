@@ -1,0 +1,20 @@
+<div class="form-group {% if errors[name] %} has-error{% endif%}">
+  <label class="col-sm-2 control-label">{{ label }}</label>
+  <div class="col-sm-10">
+    <div>
+      {% if type == 'text' %}
+      <input class="form-control" type="text" id="{{name}}" name="{{name}}" value="{{ value | e}}"/>
+      {% elseif type == 'date' %}
+      <input class="form-control" type="text" id="{{name}}" name="{{name}}" value="{{ value | e}}"
+             placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+             pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
+      {% endif %}
+    </div>
+    {% if errors[name] %}
+    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <span class="help-inline">{% for error in errors[name] %} {{ error }} {% endfor %}</span>
+    {% else %}
+    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+    {% endif %}
+  </div>
+</div>

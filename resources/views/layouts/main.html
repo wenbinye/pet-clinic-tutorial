@@ -35,36 +35,22 @@
               </button>
           </div>
           <div class="navbar-collapse collapse" id="main-navbar">
-              <ul class="nav navbar-nav navbar-right">
-                  <li>
-                      <a href="/" title="home page">
-                        <span class="glyphicon  glyphicon-home" aria-hidden="true"></span>
-                        <span>Home</span>
-                      </a>
-                  </li>
-  
-                  <li>
-                      <a href="/owners/find" title="find owners">
-                        <span class="glyphicon  glyphicon-search" aria-hidden="true"></span>
-                        <span>Find owners</span>
-                      </a>
-                  </li>
-  
-                  <li>
-                      <a href="/vets" title="veterinarians">
-                        <span class="glyphicon  glyphicon-th-list" aria-hidden="true"></span>
-                        <span>Veterinarians</span>
-                      </a>
-                  </li>
-  
-                  <li>
-                      <a href="/oups" title="trigger a RuntimeException to see how it is handled">
-                        <span class="glyphicon  glyphicon-warning-sign" aria-hidden="true"></span>
-                        <span>Error</span>
-                      </a>
-                  </li>
-  
-              </ul>
+            <ul class="nav navbar-nav navbar-right">
+              {% set menuItems = [
+              { "id": "home", "url": "/", "title": "home", "icon": "home", "label": "Home" },
+              { "id": "owners", "url": "/owners/find", "title": "find owners", "icon": "search", "label": "Find owners" },
+              { "id": "vets", "url": "/vets", "title": "veterinarians", "icon": "th-list", "label": "Veterinarians" },
+              { "id": "error", "url": "/oups", "title": "trigger a RuntimeException to see how it is handled", "icon": "warning-sign", "label": "Error" },
+              ] %}
+              {% for menu in menuItems %}
+              <li{% if menu_active == menu.id %} class="active"{% endif %}>
+                <a href="{{ menu.url }}" title="{{ menu.title }}">
+                  <span class="glyphicon  glyphicon-{{ menu.icon }}" aria-hidden="true"></span>
+                  <span>{{ menu.label }}</span>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
           </div>
       </div>
   </nav>
@@ -88,13 +74,4 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 </body>
-<script>
- $(function() {
-     $("#main-navbar li").each(function() {
-         if ($(this).find('a').attr('href') == location.pathname) {
-             $(this).addClass("active");
-         }
-     });
- });
-</script>
 </html>

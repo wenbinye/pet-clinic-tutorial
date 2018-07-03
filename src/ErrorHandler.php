@@ -3,13 +3,18 @@
 namespace winwin\petClinic;
 
 use kuiper\di\annotation\Inject;
+use kuiper\di\ContainerAwareInterface;
+use kuiper\di\ContainerAwareTrait;
 use kuiper\helper\Arrays;
+use kuiper\web\ViewInterface;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Util\Misc;
 
-class ErrorHandler extends \kuiper\web\ErrorHandler
+class ErrorHandler extends \kuiper\web\ErrorHandler implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * @Inject("app.dev_mode")
      *
@@ -22,7 +27,9 @@ class ErrorHandler extends \kuiper\web\ErrorHandler
         if ($this->devMode) {
             return $this->whoopsHandleException($e);
         } else {
-            return parent::handle($e);
+            return $this->render('error.html', [
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 
@@ -64,5 +71,20 @@ class ErrorHandler extends \kuiper\web\ErrorHandler
         $response->getBody()->write($content);
 
         return $response;
+    }
+
+    /**
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function render($page, $vars = [])
+    {
+        try {
+            $view = $this->container->get(ViewInterface::class);
+            $this->response->getBody()->write($view->render($page, $vars));
+
+            return $this->response;
+        } catch (\Exception $e) {
+            return parent::handle($e);
+        }
     }
 }

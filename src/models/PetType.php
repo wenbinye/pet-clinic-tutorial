@@ -2,7 +2,7 @@
 
 namespace winwin\petClinic\models;
 
-class Specialty
+class PetType
 {
     /**
      * @var string

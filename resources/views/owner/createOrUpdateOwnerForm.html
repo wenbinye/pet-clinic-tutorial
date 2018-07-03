@@ -1,0 +1,23 @@
+{% set menu_active = "owners" %}
+
+{% extends "layouts/main.html" %}
+
+{% block content %}
+
+  <h2>Owner</h2>
+  <form class="form-horizontal" id="add-owner-form" method="post">
+    <div class="form-group has-feedback">
+      {{ include("partials/inputField.html", {"label":"First Name", "name": "firstName", "type": "text", "value": owner.firstName}) }}
+      {{ include("partials/inputField.html", {"label":"Last Name", "name": "lastName", "type": "text", "value": owner.lastName}) }}
+      {{ include("partials/inputField.html", {"label":"Address", "name": "address", "type": "text", "value": owner.address}) }}
+      {{ include("partials/inputField.html", {"label":"City", "name": "city", "type": "text", "value": owner.city}) }}
+      {{ include("partials/inputField.html", {"label":"Telephone", "name": "telephone", "type": "text", "value": owner.telephone}) }}
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-default" type="submit">{{ owner.ownerId ? "Update Owner" : "Add Owner" }}</button>
+      </div>
+    </div>
+  </form>
+
+{% endblock %}
