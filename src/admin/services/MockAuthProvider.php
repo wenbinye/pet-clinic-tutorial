@@ -10,6 +10,7 @@ class MockAuthProvider implements AuthProviderInterface
     private static $USERS = [
         [
             'name' => 'admin',
+            'nickname' => '管理员',
             'password' => '123456',
             'avatar' => 'http://cdn.17gaoda.com/avatar/1.png',
         ],
@@ -37,7 +38,7 @@ class MockAuthProvider implements AuthProviderInterface
             throw new NotFoundException("User '$username' does not exist");
         }
 
-        return $user;
+        return Arrays::select($user, ['name', 'nickname', 'avatar']);
     }
 
     private function findUser($username)

@@ -7,7 +7,7 @@
 
   <form role="form" method="POST">
     <div class="form-group has-feedback{{ errors.username ? ' has-error' : '' }}">
-      <input id="username" name="username" class="form-control" value="" placeholder="User Name" required autofocus>
+      <input id="username" name="username" class="form-control" value="{{ username | e }}" placeholder="User Name" required autofocus>
       <span class="glyphicon glyphicon-user form-control-feedback"></span>
       {% if errors.username %}
       <span class="help-block">

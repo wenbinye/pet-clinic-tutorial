@@ -48,14 +48,20 @@ class SignUpController extends Controller
         $params = $this->request->getParsedBody();
         $validator = $this->validatorFactory->create($params);
         $validator->rule('required', ['username', 'password']);
-        if (!$validator->validate()) {
-            throw new ValidationException($validator->errors());
-        }
-        if (!$this->authProvider->exists($params['username'])) {
-            throw new ValidationException(['username' => ['User does not exist']]);
-        }
-        if (!$this->authProvider->verifyPassword($params['username'], $params['password'])) {
-            throw new ValidationException(['password' => ['Password does not match']]);
+        try {
+            if (!$validator->validate()) {
+                throw new ValidationException($validator->errors());
+            }
+            if (!$this->authProvider->exists($params['username'])) {
+                throw new ValidationException(['username' => ['用户不存在']]);
+            }
+            if (!$this->authProvider->verifyPassword($params['username'], $params['password'])) {
+                throw new ValidationException(['password' => ['密码不匹配']]);
+            }
+        } catch (ValidationException $e) {
+            return $this->render('admin/login', array_merge($params, [
+                'errors' => $e->getErrors(),
+            ]));
         }
         $this->auth->login($this->authProvider->getIdentity($params['username']));
         $this->redirect('/admin/');
