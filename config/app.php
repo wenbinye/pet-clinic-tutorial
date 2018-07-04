@@ -24,6 +24,10 @@ return [
     'middlewares' => [
         [kuiper\web\middlewares\Filter::class, 'before:dispatch'],
     ],
+    'acl' => [
+        'vet' => ['vet:view'],
+        'pet' => ['pet:view'],
+    ],
     'base_path' => realpath(__DIR__.'/..'),
     'runtime_path' => '{app.base_path}/runtime',
     'view' => [

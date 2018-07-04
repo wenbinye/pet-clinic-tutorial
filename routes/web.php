@@ -25,9 +25,12 @@ $app->group(['namespace' => 'winwin\petClinic\controllers'], function ($app) {
 
 $app->group(['namespace' => 'winwin\petClinic\admin\controllers', 'prefix' => '/admin'], function ($app) {
     /* @var \kuiper\web\RouteRegistrarInterface $app */
-    $app->get('[/]', 'IndexController:index');
-
     $app->get('/login', 'SignUpController:initLoginForm');
     $app->post('/login', 'SignUpController:processLoginForm');
     $app->get('/logout', 'SignUpController:logout');
+
+    $app->get('[/]', 'IndexController:index');
+
+    $app->get('/vets', 'VetController:index');
+    $app->get('/pets', 'PetController:index');
 });

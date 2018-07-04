@@ -11,6 +11,7 @@ class MockAuthProvider implements AuthProviderInterface
         [
             'name' => 'admin',
             'nickname' => '管理员',
+            'roles' => ['vet'],
             'password' => '123456',
             'avatar' => 'http://cdn.17gaoda.com/avatar/1.png',
         ],
@@ -38,7 +39,7 @@ class MockAuthProvider implements AuthProviderInterface
             throw new NotFoundException("User '$username' does not exist");
         }
 
-        return Arrays::select($user, ['name', 'nickname', 'avatar']);
+        return Arrays::select($user, ['name', 'nickname', 'avatar', 'roles']);
     }
 
     private function findUser($username)

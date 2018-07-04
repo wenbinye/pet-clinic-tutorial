@@ -2,7 +2,12 @@
 
 namespace winwin\petClinic\admin\controllers;
 
-class IndexController extends Controller
+use kuiper\web\annotation\filter\Acl;
+
+/**
+ * @Acl("vet:view")
+ */
+class VetController extends Controller
 {
     public function index()
     {

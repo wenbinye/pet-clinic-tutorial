@@ -6,6 +6,7 @@ use kuiper\di\annotation\Inject;
 use kuiper\di\ContainerAwareInterface;
 use kuiper\di\ContainerAwareTrait;
 use kuiper\helper\Arrays;
+use kuiper\web\exception\AccessDeniedException;
 use kuiper\web\exception\UnauthorizedException;
 use kuiper\web\ViewInterface;
 use Whoops\Handler\JsonResponseHandler;
@@ -32,6 +33,8 @@ class ErrorHandler extends \kuiper\web\ErrorHandler implements ContainerAwareInt
     {
         if ($e instanceof UnauthorizedException) {
             return $this->redirect('/admin/login');
+        } elseif ($e instanceof AccessDeniedException) {
+            return $this->render('/admin/access_denied.html');
         }
         if ($this->devMode) {
             return $this->whoopsHandleException($e);
