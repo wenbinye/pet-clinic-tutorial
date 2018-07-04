@@ -1,5 +1,7 @@
 <?php
 
+use winwin\petClinic\admin\constants\Resource;
+
 return [
     'providers' => [
         kuiper\boot\providers\WebApplicationProvider::class,
@@ -25,8 +27,8 @@ return [
         [kuiper\web\middlewares\Filter::class, 'before:dispatch'],
     ],
     'acl' => [
-        'vet' => ['vet:view'],
-        'pet' => ['pet:view'],
+        'vet' => [Resource::VET_VIEW],
+        'pet' => [Resource::PET_VIEW],
     ],
     'base_path' => realpath(__DIR__.'/..'),
     'runtime_path' => '{app.base_path}/runtime',

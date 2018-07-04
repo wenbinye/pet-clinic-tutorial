@@ -3,9 +3,10 @@
 namespace winwin\petClinic\admin\controllers;
 
 use kuiper\web\annotation\filter\Acl;
+use winwin\petClinic\admin\constants\Resource;
 
 /**
- * @Acl("vet:view")
+ * @Acl(Resource::VET_VIEW)
  */
 class VetController extends Controller
 {
