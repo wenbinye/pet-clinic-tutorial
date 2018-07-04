@@ -19,10 +19,14 @@ class PetClinicServiceProvider extends Provider
             'VetRepository' => di\factory([di\get(RepositoryFactory::class), 'create'], dao\Vet::class),
             'SpecialtyRepository' => di\factory([di\get(RepositoryFactory::class), 'create'], dao\Specialty::class),
             'VetSpecialtyRepository' => di\factory([di\get(RepositoryFactory::class), 'create'], dao\VetSpecialty::class),
+
             ErrorHandlerInterface::class => di\object(ErrorHandler::class),
+
             services\VetServiceInterface::class => di\object(services\VetService::class),
             services\OwnerServiceInterface::class => di\object(services\OwnerService::class),
             services\PetServiceInterface::class => di\object(services\PetService::class),
+
+            admin\services\AuthProviderInterface::class => di\object(admin\services\MockAuthProvider::class),
         ]);
     }
 }

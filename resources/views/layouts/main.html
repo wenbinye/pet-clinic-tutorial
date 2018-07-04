@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{static_url('/images/favicon.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ static_base_uri }}/images/favicon.png">
 
     <title>PetClinic :: a Spring Framework demonstration</title>
 
@@ -17,7 +17,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link rel="stylesheet" href="{{static_url('/css/petclinic.css?v=1')}}"/>
+    <link rel="stylesheet" href="{{ static_base_uri }}/css/petclinic.css?v=1"/>
 
   </head>
 
@@ -40,7 +40,7 @@
               { "id": "home", "url": "/", "title": "home", "icon": "home", "label": "Home" },
               { "id": "owners", "url": "/owners/find", "title": "find owners", "icon": "search", "label": "Find owners" },
               { "id": "vets", "url": "/vets", "title": "veterinarians", "icon": "th-list", "label": "Veterinarians" },
-              { "id": "error", "url": "/oups", "title": "trigger a RuntimeException to see how it is handled", "icon": "warning-sign", "label": "Error" },
+              { "id": "oups", "url": "/oups", "title": "trigger a RuntimeException to see how it is handled", "icon": "warning-sign", "label": "Error" },
               ] %}
               {% for menu in menuItems %}
               <li{% if menu_active == menu.id %} class="active"{% endif %}>
@@ -62,7 +62,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12 text-center">
-              <img src="{{static_url('/images/spring-pivotal-logo.png')}}" th:src="{{static_url('/resources/images/spring-pivotal-logo.png')}}"
+              <img src="{{ static_base_uri }}/images/spring-pivotal-logo.png" th:src="{{ static_base_uri }}/resources/images/spring-pivotal-logo.png"
                 alt="Sponsored by Pivotal"/></div>
           </div>
         </div>

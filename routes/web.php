@@ -22,3 +22,12 @@ $app->group(['namespace' => 'winwin\petClinic\controllers'], function ($app) {
     $app->get("/pets/{petId:\d+}/visits/new", 'VisitController:initNewVisitForm');
     $app->post("/pets/{petId:\d+}/visits/new", 'VisitController:processNewVisitForm');
 });
+
+$app->group(['namespace' => 'winwin\petClinic\admin\controllers', 'prefix' => '/admin'], function ($app) {
+    /* @var \kuiper\web\RouteRegistrarInterface $app */
+    $app->get('[/]', 'IndexController:index');
+
+    $app->get('/login', 'SignUpController:initLoginForm');
+    $app->post('/login', 'SignUpController:processLoginForm');
+    $app->get('/logout', 'SignUpController:logout');
+});

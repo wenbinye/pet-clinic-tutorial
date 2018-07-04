@@ -18,9 +18,17 @@ return [
         'charset' => getenv('DB_CHARSET') ?: 'utf8',
         'logging' => getenv('DB_LOGGING') == 'true',
     ],
+    'session' => [
+        'handler' => 'file',
+    ],
     'base_path' => realpath(__DIR__.'/..'),
     'runtime_path' => '{app.base_path}/runtime',
-    'views_path' => '{app.base_path}/resources/views',
-    'static_base_uri' => 'http://cdn.17gaoda.com/winwin/0.1.0/pet-clinic',
+    'view' => [
+        'path' => '{app.base_path}/resources/views',
+        'globals' => [
+            'static_base_uri' => 'http://cdn.17gaoda.com/winwin/0.1.0/pet-clinic',
+            'adminlte_base_uri' => 'http://cdn.17gaoda.com/adminlte/2.3.8',
+        ],
+    ],
     'dev_mode' => (getenv('APP_DEV_MODE') === 'true'),
 ];

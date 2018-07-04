@@ -1,12 +1,12 @@
-{% set menu_active = "home" %}
-
-{% extends "layouts/main.html" %}
+{% extends "layouts/admin.html" %}
 
 {% block content %}
-    <h2>Welcome</h2>
+<section class="content row">
+    <h1>Welcome</h1>
     <div class="row">
         <div class="col-md-12">
           <img class="img-responsive" src="{{ static_base_uri }}/images/pets.png" />
         </div>
     </div>
+</section>
 {% endblock %}
