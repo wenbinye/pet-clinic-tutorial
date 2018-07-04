@@ -6,6 +6,7 @@ use kuiper\di\annotation\Inject;
 use kuiper\di\ContainerAwareInterface;
 use kuiper\di\ContainerAwareTrait;
 use kuiper\helper\Arrays;
+use kuiper\web\exception\UnauthorizedException;
 use kuiper\web\ViewInterface;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
@@ -22,8 +23,16 @@ class ErrorHandler extends \kuiper\web\ErrorHandler implements ContainerAwareInt
      */
     private $devMode = false;
 
+    /**
+     * @param \Exception $e
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function handle($e)
     {
+        if ($e instanceof UnauthorizedException) {
+            return $this->redirect('/admin/login');
+        }
         if ($this->devMode) {
             return $this->whoopsHandleException($e);
         } else {
@@ -86,5 +95,10 @@ class ErrorHandler extends \kuiper\web\ErrorHandler implements ContainerAwareInt
         } catch (\Exception $e) {
             return parent::handle($e);
         }
+    }
+
+    private function redirect($url)
+    {
+        return $this->response->withStatus(302)->withHeader('location', $url);
     }
 }

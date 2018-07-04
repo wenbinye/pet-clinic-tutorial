@@ -3,9 +3,13 @@
 namespace winwin\petClinic\admin\controllers;
 
 use kuiper\di\annotation\Inject;
+use kuiper\web\annotation\filter\LoginOnly;
 use kuiper\web\security\AuthInterface;
 use winwin\petClinic\controllers\Controller;
 
+/**
+ * @LoginOnly()
+ */
 class IndexController extends Controller
 {
     /**
@@ -15,7 +19,7 @@ class IndexController extends Controller
      */
     private $auth;
 
-    public function getDefaultVars($page)
+    protected function getDefaultVars($page)
     {
         return [
             'user' => $this->auth->getIdentity(),
@@ -24,9 +28,6 @@ class IndexController extends Controller
 
     public function index()
     {
-        if ($this->auth->isGuest()) {
-            $this->redirect('/admin/login');
-        }
         $this->render('admin/welcome');
     }
 }

@@ -21,6 +21,9 @@ return [
     'session' => [
         'handler' => 'file',
     ],
+    'middlewares' => [
+        [kuiper\web\middlewares\Filter::class, 'before:dispatch'],
+    ],
     'base_path' => realpath(__DIR__.'/..'),
     'runtime_path' => '{app.base_path}/runtime',
     'view' => [

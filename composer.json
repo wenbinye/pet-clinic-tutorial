@@ -3,13 +3,13 @@
     "type": "project",
     "require": {
         "php": "^7.0",
-        "kuiper/boot": "^0.3.9",
-        "kuiper/annotations": "^0.3.4",
+        "kuiper/boot": "^0.3",
+        "kuiper/annotations": "^0.3",
         "twig/twig": "^2.3",
         "vlucas/phpdotenv": "^2.4",
         "monolog/monolog": "^1.22",
-        "winwin/providers": "^0.2.18",
-        "winwin/support": "^0.2.2",
+        "winwin/providers": "^0.2",
+        "winwin/support": "^0.2",
         "vlucas/valitron": "^1.4"
     },
     "require-dev": {
