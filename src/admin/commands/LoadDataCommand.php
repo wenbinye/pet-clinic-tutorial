@@ -1,6 +1,6 @@
 <?php
 
-namespace winwin\petClinic\commands;
+namespace winwin\petClinic\admin\commands;
 
 use Carbon\Carbon;
 use kuiper\di\annotation\Inject;

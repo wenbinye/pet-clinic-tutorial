@@ -14,6 +14,7 @@ return [
     ],
     'commands' => [
         winwin\petClinic\admin\commands\CreateUserCommand::class,
+        winwin\petClinic\admin\commands\LoadDataCommand::class,
     ],
     'database' => [
         'host' => getenv('DB_HOST') ?: '127.0.0.1',
