@@ -20,6 +20,26 @@ return [
         'charset' => getenv('DB_CHARSET') ?: 'utf8',
         'logging' => getenv('DB_LOGGING') == 'true',
     ],
+    'database_cluster' => [
+        [
+            'host' => getenv('DB1_HOST') ?: '127.0.0.1',
+            'port' => getenv('DB_PORT') ?: 3306,
+            'user' => getenv('DB_USER'),
+            'password' => getenv('DB_PASS') ?: '',
+            'dbname' => getenv('DB_NAME'),
+            'charset' => getenv('DB_CHARSET') ?: 'utf8',
+            'logging' => getenv('DB_LOGGING') == 'true',
+        ],
+        [
+            'host' => getenv('DB2_HOST') ?: '127.0.0.1',
+            'port' => getenv('DB_PORT') ?: 3306,
+            'user' => getenv('DB_USER'),
+            'password' => getenv('DB_PASS') ?: '',
+            'dbname' => getenv('DB_NAME'),
+            'charset' => getenv('DB_CHARSET') ?: 'utf8',
+            'logging' => getenv('DB_LOGGING') == 'true',
+        ],
+    ],
     'session' => [
         'handler' => 'file',
     ],

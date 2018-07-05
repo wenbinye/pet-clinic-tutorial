@@ -5,6 +5,7 @@ namespace winwin\petClinic\services;
 use kuiper\di\annotation\Inject;
 use kuiper\helper\Arrays;
 use winwin\db\orm\Repository;
+use winwin\db\orm\ShardingRepository;
 use winwin\petClinic\dao;
 use winwin\petClinic\models\Pet;
 use winwin\petClinic\models\PetType;
@@ -16,14 +17,14 @@ class PetService implements PetServiceInterface
     /**
      * @Inject("PetRepository")
      *
-     * @var Repository
+     * @var ShardingRepository
      */
     private $petRepository;
 
     /**
      * @Inject("VisitRepository")
      *
-     * @var Repository
+     * @var ShardingRepository
      */
     private $visitRepository;
 
@@ -69,7 +70,7 @@ class PetService implements PetServiceInterface
     public function save($pet)
     {
         $petDo = new dao\Pet();
-        $petDo->setId($pet->getPetId())
+        $petDo->setId($pet->getId())
             ->setOwnerId($pet->getOwnerId())
             ->setName($pet->getName())
             ->setBirthDate($pet->getBirthDate());
@@ -85,7 +86,7 @@ class PetService implements PetServiceInterface
             $this->petRepository->update($petDo);
         } else {
             $this->petRepository->insert($petDo);
-            $pet->setPetId($petDo->getId());
+            $pet->setId($petDo->getId());
         }
 
         return $pet;
@@ -93,7 +94,9 @@ class PetService implements PetServiceInterface
 
     public function find($petId)
     {
-        $petDo = $this->petRepository->findOne($petId);
+        $pet = new Pet();
+        $pet->setPetId($petId);
+        $petDo = $this->petRepository->findOne(['id' => $pet->getId(), 'owner_id' => $pet->getOwnerId()]);
         if (!$petDo) {
             throw new NotFoundException("pet '$petId' does not exist");
         }
@@ -103,8 +106,11 @@ class PetService implements PetServiceInterface
 
     public function addVisit($petId, $visit)
     {
+        $pet = new Pet();
+        $pet->setPetId($petId);
         $visitDo = (new dao\Visit())
-            ->setPetId($petId)
+            ->setPetId($pet->getId())
+            ->setOwnerId($pet->getOwnerId())
             ->setVisitDate($visit->getVisitDate())
             ->setDescription($visit->getDescription());
         $this->visitRepository->insert($visitDo);
@@ -118,14 +124,14 @@ class PetService implements PetServiceInterface
     private function thawPet($petDo)
     {
         return (new Pet())
-            ->setPetId($petDo->getId())
+            ->setId($petDo->getId())
             ->setOwnerId($petDo->getOwnerId())
             ->setName($petDo->getName())
             ->setBirthDate($petDo->getBirthDate());
     }
 
     /**
-     * @param Repository $petRepository
+     * @param ShardingRepository $petRepository
      */
     public function setPetRepository($petRepository)
     {
@@ -133,7 +139,7 @@ class PetService implements PetServiceInterface
     }
 
     /**
-     * @param Repository $visitRepository
+     * @param ShardingRepository $visitRepository
      */
     public function setVisitRepository($visitRepository)
     {
@@ -155,6 +161,7 @@ class PetService implements PetServiceInterface
      */
     protected function getPetTypeAndVisits($petDoList)
     {
+        /** @var Pet[] $pets */
         $pets = [];
         /** @var dao\PetType[] $petTypeDoList */
         $petTypeDoList = $this->petTypeRepository->query([
@@ -173,6 +180,7 @@ class PetService implements PetServiceInterface
         /** @var dao\Visit[] $visitDoList */
         $visitDoList = $this->visitRepository->query([
             'pet_id' => Arrays::pull($petDoList, 'id', Arrays::GETTER),
+            'owner_id' => $pets[0]->getOwnerId(),
         ]);
         $visits = [];
         foreach ($visitDoList as $visitDo) {
@@ -181,8 +189,8 @@ class PetService implements PetServiceInterface
                 ->setDescription($visitDo->getDescription());
         }
         foreach ($pets as $pet) {
-            if (isset($visits[$pet->getPetId()])) {
-                $pet->setVisits($visits[$pet->getPetId()]);
+            if (isset($visits[$pet->getId()])) {
+                $pet->setVisits($visits[$pet->getId()]);
             }
         }
 

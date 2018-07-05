@@ -7,7 +7,7 @@ class Pet
     /**
      * @var int
      */
-    private $petId;
+    private $id;
 
     /**
      * @var int
@@ -39,14 +39,39 @@ class Pet
      */
     private $visits = [];
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Pet
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getPetId()
     {
-        return $this->petId;
+        return $this->id ? $this->ownerId.'-'.$this->id : null;
     }
 
     public function setPetId($petId)
     {
-        $this->petId = $petId;
+        if (preg_match('/^(\d+)-(\d+)$/', $petId, $matches)) {
+            $this->ownerId = $matches[1];
+            $this->id = $matches[2];
+        } else {
+            throw new \InvalidArgumentException("petId is not valid, expected '{ownerId}-{id}', got '$petId'");
+        }
 
         return $this;
     }

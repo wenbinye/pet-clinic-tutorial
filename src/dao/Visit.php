@@ -44,6 +44,13 @@ class Visit
      */
     private $description;
 
+    /**
+     * @Column
+     *
+     * @var int
+     */
+    private $ownerId;
+
     public function getId()
     {
         return $this->id;
@@ -88,6 +95,18 @@ class Visit
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
+
+    public function setOwnerId($ownerId)
+    {
+        $this->ownerId = $ownerId;
 
         return $this;
     }

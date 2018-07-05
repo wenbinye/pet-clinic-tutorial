@@ -16,11 +16,11 @@ $app->group(['namespace' => 'winwin\petClinic\controllers'], function ($app) {
 
     $app->get('/owners/{ownerId:\d+}/pets/new', 'PetController:initCreationForm');
     $app->post('/owners/{ownerId:\d+}/pets/new', 'PetController:processCreationForm');
-    $app->get('/pets/{petId:\d+}/edit', 'PetController:initUpdateForm');
-    $app->post('/pets/{petId:\d+}/edit', 'PetController:processUpdateForm');
+    $app->get('/pets/{petId:\d+-\d+}/edit', 'PetController:initUpdateForm');
+    $app->post('/pets/{petId:\d+-\d+}/edit', 'PetController:processUpdateForm');
 
-    $app->get("/pets/{petId:\d+}/visits/new", 'VisitController:initNewVisitForm');
-    $app->post("/pets/{petId:\d+}/visits/new", 'VisitController:processNewVisitForm');
+    $app->get("/pets/{petId:\d+-\d+}/visits/new", 'VisitController:initNewVisitForm');
+    $app->post("/pets/{petId:\d+-\d+}/visits/new", 'VisitController:processNewVisitForm');
 });
 
 $app->group(['namespace' => 'winwin\petClinic\admin\controllers', 'prefix' => '/admin'], function ($app) {

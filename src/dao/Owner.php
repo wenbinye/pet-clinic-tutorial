@@ -4,8 +4,6 @@ namespace winwin\petClinic\dao;
 
 use winwin\db\orm\annotation\Column;
 use winwin\db\orm\annotation\Entity;
-use winwin\db\orm\annotation\GeneratedValue;
-use winwin\db\orm\annotation\Id;
 use winwin\db\orm\annotation\Table;
 
 /**
@@ -16,12 +14,10 @@ class Owner
 {
     /**
      * @Column
-     * @Id
-     * @GeneratedValue
      *
      * @var int
      */
-    private $id;
+    private $ownerId;
 
     /**
      * @Column
@@ -58,14 +54,14 @@ class Owner
      */
     private $telephone;
 
-    public function getId()
+    public function getOwnerId()
     {
-        return $this->id;
+        return $this->ownerId;
     }
 
-    public function setId($id)
+    public function setOwnerId($ownerId)
     {
-        $this->id = $id;
+        $this->ownerId = $ownerId;
 
         return $this;
     }
