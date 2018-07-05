@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('memory_limit', -1);
+ini_set('display_errors', 'on');
+ini_set('default_socket_timeout', -1);
+date_default_timezone_set('Asia/Shanghai');
+
+$loader = require(__DIR__ . '/vendor/autoload.php');
+
+if (file_exists(__DIR__.'/.env')) {
+    (new \Dotenv\Dotenv(__DIR__))->load();
+}
+
+(new kuiper\boot\Application())
+    ->setLoader($loader)
+    ->useAnnotations()
+    ->loadConfig(__DIR__.'/config')
+    ->bootstrap()
+    ->get(Symfony\Component\Console\Application::class)
+    ->run();

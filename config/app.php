@@ -7,9 +7,13 @@ return [
         kuiper\boot\providers\WebApplicationProvider::class,
         kuiper\boot\providers\TwigViewProvider::class,
         kuiper\boot\providers\MonologProvider::class,
+        kuiper\boot\providers\ConsoleApplicationProvider::class,
         winwin\providers\DbConnectionProvider::class,
         winwin\providers\ValidatorProvider::class,
         winwin\petClinic\PetClinicServiceProvider::class,
+    ],
+    'commands' => [
+        winwin\petClinic\admin\commands\CreateUserCommand::class,
     ],
     'database' => [
         'host' => getenv('DB_HOST') ?: '127.0.0.1',
