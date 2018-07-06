@@ -3,8 +3,10 @@
 namespace winwin\petClinic;
 
 use kuiper\boot\Provider;
+use kuiper\cache;
 use kuiper\di;
 use kuiper\web\ErrorHandlerInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use winwin\db\orm\RepositoryFactory;
 
 class PetClinicServiceProvider extends Provider
@@ -27,6 +29,10 @@ class PetClinicServiceProvider extends Provider
             services\PetServiceInterface::class => di\object(services\PetService::class),
 
             admin\services\AuthProviderInterface::class => di\object(admin\services\MockAuthProvider::class),
+
+            CacheItemPoolInterface::class => di\object(cache\Pool::class),
+            cache\driver\DriverInterface::class => di\object(cache\driver\File::class)
+                ->constructor($this->settings['app.runtime_path'].'/session'),
         ]);
     }
 }

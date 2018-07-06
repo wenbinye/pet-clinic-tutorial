@@ -10,6 +10,7 @@ return [
         kuiper\boot\providers\ConsoleApplicationProvider::class,
         winwin\providers\DbConnectionProvider::class,
         winwin\providers\ValidatorProvider::class,
+        winwin\providers\SwooleServerProvider::class,
         winwin\petClinic\PetClinicServiceProvider::class,
     ],
     'commands' => [
@@ -24,8 +25,14 @@ return [
         'charset' => getenv('DB_CHARSET') ?: 'utf8',
         'logging' => getenv('DB_LOGGING') == 'true',
     ],
+    'swoole_http_server' => [
+        'host' => getenv('SWOOLE_SERVER_HOST') ?: '0.0.0.0',
+        'port' => getenv('SWOOLE_SERVER_PORT') ?: 8000,
+        'worker_num' => getenv('SWOOLE_WORKER_NUM') ?: 1,
+    ],
     'session' => [
         'handler' => 'file',
+        'built-in' => false,
     ],
     'middlewares' => [
         [kuiper\web\middlewares\Filter::class, 'before:dispatch'],
