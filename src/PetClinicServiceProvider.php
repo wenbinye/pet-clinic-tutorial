@@ -22,7 +22,7 @@ class PetClinicServiceProvider extends Provider
 
             ErrorHandlerInterface::class => di\object(ErrorHandler::class),
 
-            services\VetServiceInterface::class => di\object(services\VetService::class),
+            services\VetServiceInterface::class => di\object(services\RpcVetService::class),
             services\OwnerServiceInterface::class => di\object(services\OwnerService::class),
             services\PetServiceInterface::class => di\object(services\PetService::class),
 

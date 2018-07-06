@@ -8,6 +8,7 @@ return [
         kuiper\boot\providers\TwigViewProvider::class,
         kuiper\boot\providers\MonologProvider::class,
         kuiper\boot\providers\ConsoleApplicationProvider::class,
+        kuiper\boot\providers\RpcClientProvider::class,
         winwin\providers\DbConnectionProvider::class,
         winwin\providers\ValidatorProvider::class,
         winwin\petClinic\PetClinicServiceProvider::class,
@@ -44,4 +45,14 @@ return [
         ],
     ],
     'dev_mode' => (getenv('APP_DEV_MODE') === 'true'),
+    'rpc' => [
+        'providers' => [
+            'vet' => [
+                'server' => getenv('VET_SERVICE_URI'),
+                'services' => [
+                    winwin\petClinicVet\facade\VetServiceInterface::class,
+                ],
+            ],
+        ],
+    ],
 ];

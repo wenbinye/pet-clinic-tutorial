@@ -11,7 +11,9 @@
         "winwin/providers": "^0.2",
         "winwin/support": "^0.2",
         "vlucas/valitron": "^1.4",
-        "symfony/console": "^3.2"
+        "symfony/console": "^3.2",
+        "yewenbin/pet-clinic-vet-facade": "dev-master",
+        "kuiper/rpc-client": "^0.3.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
