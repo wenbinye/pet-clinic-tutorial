@@ -6,16 +6,17 @@ ini_set('display_errors', 'on');
 ini_set('default_socket_timeout', -1);
 date_default_timezone_set('Asia/Shanghai');
 
-$loader = require(__DIR__ . '/vendor/autoload.php');
+define('APP_PATH', realpath(__DIR__));
+$loader = require(APP_PATH . '/vendor/autoload.php');
 
-if (file_exists(__DIR__.'/.env')) {
-    (new \Dotenv\Dotenv(__DIR__))->load();
+if (file_exists(APP_PATH.'/.env')) {
+    (new \Dotenv\Dotenv(APP_PATH))->load();
 }
 
 (new kuiper\boot\Application())
     ->setLoader($loader)
     ->useAnnotations()
-    ->loadConfig(__DIR__.'/config')
+    ->loadConfig(APP_PATH.'/config')
     ->bootstrap()
     ->get(Symfony\Component\Console\Application::class)
     ->run();

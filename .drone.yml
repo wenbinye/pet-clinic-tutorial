@@ -1,0 +1,18 @@
+pipeline:
+  composer:
+    image: 702752744573.dkr.ecr.cn-northwest-1.amazonaws.com.cn/winwin/php-tools:7.2
+    commands:
+      - php composer.phar install --ignore-platform-reqs --no-scripts --no-dev --prefer-dist --optimize-autoloader --no-progress --no-interaction
+
+  ecr:
+    image: plugins/ecr
+    repo: ${AWS_ECR_REGISTRY}winwin-demo/pet-clinic
+    registry: ${AWS_ECR_REGISTRY}
+    region: cn-northwest-1
+    mirror: https://registry.docker-cn.com
+    auto_tag: true
+    pull: false
+    secrets:
+      - aws_access_key
+      - aws_secret_key
+      - aws_ecr_registry

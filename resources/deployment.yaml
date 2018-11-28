@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pet-clinic-config
+data:
+  env: |
+    APP_DEV_MODE=true
+    DB_LOGGING=true
+    DB_CHARSET=utf8mb4
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pet-clinic-credentials
+type: Opaque
+data:
+  db: REJfTkFNRT1wZXRjbGluaWMKREJfUEFTUz1Eb2hmNWVlegpEQl9VU0VSPXBldGNsaW5pYwpEQl9IT1NUPW15c3FsCg==
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: pet-clinic
+  labels:
+    app: pet-clinic
+spec:
+  selector:
+    matchLabels:
+      app: pet-clinic
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pet-clinic
+        tier: frontend
+    spec:
+      imagePullSecrets:
+        - name: aws-ecr-credentials
+      initContainers:
+        - image: 702752744573.dkr.ecr.cn-northwest-1.amazonaws.com.cn/winwin-demo/pet-clinic
+          name: pet-clinic-src
+          command: ["sh", "-c", "cp -r /app/* /src && cat /projected-volume/env /projected-volume/db > /src/.env"]
+          volumeMounts:
+            - mountPath: /src
+              name: app-volume
+            - mountPath: /projected-volume
+              name: pet-clinic-env
+      containers:
+        - name: pet-clinic
+          image: 702752744573.dkr.ecr.cn-northwest-1.amazonaws.com.cn/winwin/php
+          workingDir: /app
+          command: ["php", "console", "serve", "--port", "8080"]
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: app-volume
+              mountPath: "/app"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+      volumes:
+        - name: app-volume
+          emptyDir: {}
+        - name: pet-clinic-env
+          projected:
+            sources:
+              - secret:
+                  name: pet-clinic-credentials
+              - configMap:
+                  name: pet-clinic-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pet-clinic
+  labels:
+    app: pet-clinic
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: http
+  selector:
+    app: pet-clinic

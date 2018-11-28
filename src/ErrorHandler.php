@@ -50,6 +50,7 @@ class ErrorHandler extends \kuiper\web\ErrorHandler implements ContainerAwareInt
         $request = $this->getRequest();
         $server = $request->getServerParams();
         $prettyPageHandler = new PrettyPageHandler();
+        $prettyPageHandler->handleUnconditionally(true);
         $prettyPageHandler->addDataTable('Application', [
             'Script Name' => Arrays::fetch($server, 'SCRIPT_NAME'),
         ]);
